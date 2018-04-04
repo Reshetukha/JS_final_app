@@ -1,0 +1,35 @@
+header {
+    padding-left: 300px;
+}
+
+nav {
+    padding-left: 20px;
+}
+
+main {
+    padding-left: 320px;
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, footer {
+        padding-left: 0;
+    }
+
+    main {
+        padding-left: 20px;
+    }
+}
+
+.navigation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navigation-add {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-right: 24px;
+}

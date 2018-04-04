@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<div id="modalAdd" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Add new member</h4>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="street" type="text" class="validate">
+                        <label for="street">Street</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="zip_code" type="text" class="validate">
+                        <label for="zip_code">Zip code</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="city" type="text" class="validate">
+                        <label for="city">City</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="phone" type="text" class="validate">
+                        <label for="phone">Phone number</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="groups">
+                            <option value="" disabled selected>Choose group</option>
+<!--
+                            <option value="1">Administrator</option>
+                            <option value="2">Merchant</option>
+                            <option value="3">Operator</option>
+                            <option value="4">Client</option>
+-->
+                        </select>
+                        <label>Group</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="range_credit">Credit</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="range_credit" type="range" min="0" max="1000" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        <a id="create_button" class="modal-action modal-close waves-effect waves-green btn-flat">Create</a>
+    </div>
+</div>
+
+<div id="modalEdit" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Edit member</h4>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="street" type="text" class="validate">
+                        <label for="street">Street</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="zip_code" type="text" class="validate">
+                        <label for="zip_code">Zip code</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="city" type="text" class="validate">
+                        <label for="city">City</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="phone" type="text" class="validate">
+                        <label for="phone">Phone number</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="groups">
+                            <option value="" disabled selected>Choose group</option>
+<!--
+                            <option value="1">Administrator</option>
+                            <option value="2">Merchant</option>
+                            <option value="3">Operator</option>
+                            <option value="4">Client</option>
+-->
+                        </select>
+                        <label>Group</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="range_credit">Credit</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="range_credit" type="range" min="0" max="1000" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        <a id="update_button" class="modal-action modal-close waves-effect waves-green btn-flat">Update</a>
+    </div>
+</div>
+
+<div id="slide-out" class="sidenav sidenav-fixed navigation-container">
+    <ul>
+<!--
+        <li><a href="#">Administrators <span class="badge" data-badge-caption="">1</span></a></li>
+        <li class="active"><a href="#">Merchants <span class="badge" data-badge-caption="">3</span></a></li>
+        <li><a href="#">Operators <span class="badge" data-badge-caption="">9</span></a></li>
+        <li><a href="#">Clients <span class="badge" data-badge-caption="">555</span></a></li>
+-->
+    </ul>
+    <div class="navigation-add">
+        <a class="btn-floating btn-large waves-effect waves-light modal-trigger" href="#modalAdd">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+</div>
+
+
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" data-target="slide-out" class="brand-logo sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+<!--            <span class="page-title">Merchants</span>-->
+            <span class="page-title"></span>
+        </div>
+    </nav>
+</header>
+
+
+<main>
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>Zip code</th>
+            <th>City</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+
+        <tbody>
+<!--
+            <tr>
+                <td>Chang Dejesus</td>
+                <td>8874 Place</td>
+                <td>7463527</td>
+                <td>Munjor</td>
+                <td>+32 (818) 643-6736</td>
+            </tr>
+            <tr>
+                <td>Chang Dejesus</td>
+                <td>8874 Place</td>
+                <td>7463527</td>
+                <td>Munjor</td>
+                <td>+32 (818) 643-6736</td>
+            </tr>
+            <tr>
+                <td>Chang Dejesus</td>
+                <td>8874 Place</td>
+                <td>7463527</td>
+                <td>Munjor</td>
+                <td>+32 (818) 643-6736</td>
+            </tr>
+-->
+        </tbody>
+    </table>
+</main>
+
+
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+    const sidenav = document.querySelector('.sidenav');
+    M.Sidenav.init(sidenav, {});
+
+//    const modal = document.querySelector('.modal');
+//    M.Modal.init(modal, {});
+
+    const select = document.querySelector('select');
+    M.FormSelect.init(select, {});
+</script>
+<script src="./dist/bundle.js"></script>
+
+</body>
+</html>
