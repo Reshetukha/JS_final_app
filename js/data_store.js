@@ -15,6 +15,7 @@ class DataStore extends Component {
   }
 
   renderInitFun() {
+    this.sortData();
     function fun() {
       this.emit('renderGroups', this.groups, document);
       this.emit('renderUsers', this.users, document);
@@ -131,6 +132,15 @@ class DataStore extends Component {
   editBlankEmit(id) {
     let user = this.users.find( (item) => item.user_id == id )
     this.emit('editSendData', [user, this.groups], document);
+  }
+
+  sortData() {
+    this.users.sort( (a, b) => {
+      return a.user_id - b.user_id;
+    });
+    this.groups.sort( (a, b) => {
+      return a.group_id - b.group_id;
+    });
   }
   
 }
