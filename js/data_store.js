@@ -36,6 +36,8 @@ class DataStore extends Component {
 
   renderInitFun() {
     this.sortData();
+    console.log('users', this.users);
+    console.log('groups', this.groups);
     function fun() {
       this.emit('renderGroups', this.groups, document);
       this.emit('renderUsers', this.users, document);
@@ -77,7 +79,13 @@ class DataStore extends Component {
     const id = data.id;
     const url = `https://ums-honeybadger.herokuapp.com/${action[0]}/${id}`;
     fetch(url)
-      .then(response => response.json())
+      .then((response) => {
+        console.log('response', response);
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        return response.json();
+      })
       .then((json) => {
         if (action[0] === 'user') {
           this.addUser(json);
@@ -121,7 +129,14 @@ class DataStore extends Component {
     fetch(url, {
       method: 'put',
       body: JSON.stringify(temp),
-    });
+    })
+      .then((response) => {
+        console.log('response', response);
+        if (response.status !== 200) {
+          throw new Error();
+        }
+      })
+      .catch(console.log);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -134,7 +149,14 @@ class DataStore extends Component {
     fetch(url, {
       method: 'post',
       body: temp,
-    });
+    })
+      .then((response) => {
+        console.log('response', response);
+        if (response.status !== 201) {
+          throw new Error();
+        }
+      })
+      .catch(console.log);
   }
 
   postBlankEmit() {
