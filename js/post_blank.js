@@ -40,35 +40,10 @@ class PostBlank extends Component {
       blankGroupsSel.innerHTML += `<option value="${item.group_id}" id="${item.group_id}">${item.name}</option>`;
     });
     M.FormSelect.init(groupSel, {});
-
-    const materialGroupUl = document.querySelector('#modalAdd').querySelector('.select-wrapper').querySelector('ul');
-    Array.from(materialGroupUl.children).forEach((li) => {
-      li.onclick = this.groupChoosed.bind(this);
-    });
-
   }
 
   postRequestData() {
     this.emit('postRequestData', null, document);
-  }
-
-  groupChoosed() {
-    this.instance = M.FormSelect.init(groupSel, {});
-    this.instance = M.FormSelect.getInstance(groupSel);
-    const groupId = this.instance.getSelectedValues()[0];
-    if (groupId) {
-      const selectedGroup = this.groups.find(item => item.group_id == groupId);
-      if (selectedGroup && selectedGroup.is_admin) {
-        rangeCreditSel.disabled = true;
-      } else {
-        rangeCreditSel.disabled = false;
-      }
-    }
-
-    const materialGroupUl = document.querySelector('#modalAdd').querySelector('.select-wrapper').querySelector('ul');
-    Array.from(materialGroupUl.children).forEach((li) => {
-      li.onclick = this.groupChoosed.bind(this);
-    });
   }
 
   postBlankCreate() {
@@ -77,7 +52,6 @@ class PostBlank extends Component {
 
     const tempUser = {};
     [tempUser.group_id] = this.instance.getSelectedValues();
-    // tempUser.group_id = this.instance.getSelectedValues()[0];
     tempUser.name = `${firstNameSel.value} ${lastNameSel.value}`;
     tempUser.street = streetSel.value;
     tempUser.zip_code = zipCodeSel.value;

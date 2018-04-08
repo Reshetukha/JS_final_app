@@ -32,35 +32,26 @@ class EditBlank extends Component {
   }
 
   initBlank(params) {
-    const user = params[0];
-    this.groups = params[1];
-    // const user;
-    // [user, this.groups] = params;
-    const choosedGroup = this.groups.find(item => item.group_id == user.group_id);
+    [this.user, this.groups] = params;
+    const choosedGroup = this.groups.find(item => item.group_id === this.user.group_id);
     blankGroupsSel.innerHTML = '';
-    blankGroupsSel.innerHTML += `<option value="${user.group_id}" disabled selected>${choosedGroup.name}</option>`;
+    blankGroupsSel.innerHTML += `<option value="${this.user.group_id}" disabled selected>${choosedGroup.name}</option>`;
     this.groups.forEach((item) => {
       blankGroupsSel.innerHTML += `<option value="${item.group_id}" id="${item.group_id}">${item.name}</option>`;
     });
 
-    if (choosedGroup.is_admin) {
-      rangeCreditSel.disabled = true;
-    } else {
-      rangeCreditSel.disabled = false;
-    }
-
-    idContainerSel.id = user.user_id;
-    const fullname = user.name.split(' ');
-    firstNameSel.value = fullname[0];
+    idContainerSel.id = this.user.user_id;
+    const fullname = this.user.name.split(' ');
+    [firstNameSel.value] = fullname;
     fullname.splice(0, 1);
     lastNameSel.value = fullname.join(' ');
-    streetSel.value = user.street;
-    zipCodeSel.value = user.zip_code;
-    citySel.value = user.city;
-    phoneSel.value = user.phone;
-    rangeCreditSel.value = user.credits;
+    streetSel.value = this.user.street;
+    zipCodeSel.value = this.user.zip_code;
+    citySel.value = this.user.city;
+    phoneSel.value = this.user.phone;
+    rangeCreditSel.value = this.user.credits;
 
-    if (rangeCreditSel.value == 0) {
+    if (parseFloat(rangeCreditSel.value) === 0) {
       firstNameSel.disabled = true;
       lastNameSel.disabled = true;
       streetSel.disabled = true;
@@ -82,8 +73,6 @@ class EditBlank extends Component {
 
     if (choosedGroup.is_admin) {
       rangeCreditSel.disabled = true;
-    } else {
-      rangeCreditSel.disabled = false;
     }
 
     M.FormSelect.init(groupSel, {});
@@ -92,12 +81,6 @@ class EditBlank extends Component {
 
     const instance = M.Modal.getInstance(modalEditSel);
     instance.open();
-
-    const materialGroupUl = document.querySelector('#modalEdit').querySelector('.select-wrapper').querySelector('ul');
-    Array.from(materialGroupUl.children).forEach((li) => {
-      li.onclick = this.groupChoosed.bind(this);
-    });
-
   }
 
   editBlankUpdate() {
@@ -106,7 +89,8 @@ class EditBlank extends Component {
 
     const tempUser = {};
     tempUser.user_id = idContainerSel.id;
-    tempUser.group_id = this.instance.getSelectedValues()[0];
+    // tempUser.group_id = this.instance.getSelectedValues()[0];
+    [tempUser.group_id] = this.instance.getSelectedValues();
     tempUser.name = `${firstNameSel.value} ${lastNameSel.value}`;
     tempUser.street = streetSel.value;
     tempUser.zip_code = zipCodeSel.value;
@@ -115,26 +99,6 @@ class EditBlank extends Component {
     tempUser.credits = rangeCreditSel.value;
     this.emit('fetchPutRequest', tempUser, document);
   }
-
-  groupChoosed() {
-    this.instance = M.FormSelect.init(groupSel, {});
-    this.instance = M.FormSelect.getInstance(groupSel);
-    const groupId = this.instance.getSelectedValues()[0];
-    if (groupId) {
-      const selectedGroup = this.groups.find(item => item.group_id == groupId);
-      if (selectedGroup && selectedGroup.is_admin) {
-        rangeCreditSel.disabled = true;
-      } else {
-        rangeCreditSel.disabled = false;
-      }
-    }
-
-    const materialGroupUl = document.querySelector('#modalEdit').querySelector('.select-wrapper').querySelector('ul');
-    Array.from(materialGroupUl.children).forEach((li) => {
-      li.onclick = this.groupChoosed.bind(this);
-    });
-  }
-
 }
 
 export default EditBlank;

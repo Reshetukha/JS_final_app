@@ -47,36 +47,41 @@ class DataStore extends Component {
 
   actionEventFun(data) {
     const action = data.action.split(':');
-    if (action[1] == 'updated') {
+    if (action[1] === 'updated') {
       this.fetchFun(data);
     }
-    if (action[1] == 'removed') {
-      if (action[0] == 'user') {
+    if (action[1] === 'removed') {
+      if (action[0] === 'user') {
         this.userDelete(data.id);
       }
-      if (action[0] == 'group') {
+      if (action[0] === 'group') {
         this.groupDelete(data.id);
       }
     }
   }
 
   userDelete(id) {
-    const temp = this.users.find(item => item.user_id == id);
+    const temp = this.users.find(item => item.user_id === id);
     const index = this.users.indexOf(temp);
     this.users.splice(index, 1);
     this.emit('renderInit', null, document);
   }
 
   groupDelete(id) {
-    const temp = this.groups.find(item => item.group_id == id);
+    const temp = this.groups.find(item => item.group_id === id);
     const index = this.groups.indexOf(temp);
     this.groups.splice(index, 1);
     this.emit('renderInit', null, document);
   }
 
   fetchFun(data) {
+    console.log('data', data);
     const action = data.action.split(':');
     const id = data.id;
+    // const { action, id } = data;
+    // action = action.split(':');
+    console.log('action', action);
+    console.log('id', id);
     const url = `https://ums-honeybadger.herokuapp.com/${action[0]}/${id}`;
     fetch(url)
       .then((response) => {
@@ -99,7 +104,7 @@ class DataStore extends Component {
   }
 
   addUser(user) {
-    const temp = this.users.find(item => item.user_id == user.user_id);
+    const temp = this.users.find(item => item.user_id === user.user_id);
     if (temp) {
       const index = this.users.indexOf(temp);
       this.users.splice(index, 1);
@@ -142,13 +147,12 @@ class DataStore extends Component {
   // eslint-disable-next-line class-methods-use-this
   postUserRequest(obj) {
     const url = 'https://ums-honeybadger.herokuapp.com/user';
-    let temp = new UserObj(obj);
+    const temp = new UserObj(obj);
     temp.user_id = undefined;
-    temp = JSON.stringify(temp);
 
     fetch(url, {
       method: 'post',
-      body: temp,
+      body: JSON.stringify(temp),
     })
       .then((response) => {
         console.log('response', response);
@@ -172,7 +176,6 @@ class DataStore extends Component {
     this.users.sort((a, b) => a.user_id - b.user_id);
     this.groups.sort((a, b) => a.group_id - b.group_id);
   }
-
 }
 
 export default DataStore;
