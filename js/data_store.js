@@ -22,7 +22,6 @@ class GroupObj {
 }
 
 class DataStore extends Component {
-
   init() {
     this.users = [];
     this.groups = [];
