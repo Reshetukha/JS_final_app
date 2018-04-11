@@ -101,7 +101,6 @@ class PostBlank extends Component {
     this.modalOverlaySel.addEventListener('click', this.closeModalFun.bind(this), false);
     this.createButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
 
-    // this.groups = groups;
     this.blankGroupsSel.innerHTML = '';
     this.blankGroupsSel.innerHTML += '<option value="" disabled selected>Choose group</option>';
     groups.forEach((item) => {
