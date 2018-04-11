@@ -17,7 +17,6 @@ class GroupsView extends Component {
     groups.forEach((group) => {
       let active;
       const hash = parseFloat(document.location.hash.split(/[#/]/)[1]);
-      // if (hash.some(item => item === group.group_id)) {
       if (hash === group.group_id) {
         pageTitleSel.innerText = group.name;
         active = 'active';

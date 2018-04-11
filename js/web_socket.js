@@ -11,7 +11,6 @@ class MyWebSocket extends Component {
 
   onMessageFun(message) {
     const data = JSON.parse(message.data);
-    // console.log('WEB SOCKET - ', data);
     if (data.message) {
       console.log('MESSAGE - ', data.message);
     }
