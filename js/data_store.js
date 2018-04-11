@@ -35,8 +35,8 @@ class DataStore extends Component {
 
   renderInitFun() {
     this.sortData();
-    console.log('users', this.users);
-    console.log('groups', this.groups);
+    // console.log('users', this.users);
+    // console.log('groups', this.groups);
     function fun() {
       this.emit('renderGroups', this.groups, document);
       this.emit('renderUsers', this.users, document);
@@ -74,17 +74,18 @@ class DataStore extends Component {
   }
 
   fetchFun(data) {
-    console.log('data', data);
+    // console.log('data', data);
     const action = data.action.split(':');
-    const id = data.id;
+    const { id } = data;
+    // const id = data.id;
     // const { action, id } = data;
     // action = action.split(':');
-    console.log('action', action);
-    console.log('id', id);
+    // console.log('action', action);
+    // console.log('id', id);
     const url = `https://ums-honeybadger.herokuapp.com/${action[0]}/${id}`;
     fetch(url)
       .then((response) => {
-        console.log('response', response);
+        // console.log('response', response);
         if (response.status !== 200) {
           throw new Error();
         }
@@ -135,7 +136,7 @@ class DataStore extends Component {
       body: JSON.stringify(temp),
     })
       .then((response) => {
-        console.log('response', response);
+        // console.log('response', response);
         if (response.status !== 200) {
           throw new Error();
         }
@@ -154,7 +155,7 @@ class DataStore extends Component {
       body: JSON.stringify(temp),
     })
       .then((response) => {
-        console.log('response', response);
+        // console.log('response', response);
         if (response.status !== 201) {
           throw new Error();
         }
@@ -167,7 +168,7 @@ class DataStore extends Component {
   }
 
   editBlankEmit(id) {
-    const user = this.users.find(item => item.user_id == id);
+    const user = this.users.find(item => item.user_id === parseFloat(id));
     this.emit('editSendData', [user, this.groups], document);
   }
 

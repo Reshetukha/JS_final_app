@@ -1,11 +1,12 @@
 import Component from './component';
 
+const sidenav = document.querySelector('.sidenav');
 const groupsUlSel = document.querySelector('#slide-out').querySelector('ul');
 const pageTitleSel = document.querySelector('.page-title');
 
 class GroupsView extends Component {
-
   init() {
+    M.Sidenav.init(sidenav, {});
     this.on('renderGroups', this.renderGroups.bind(this), document);
     window.onhashchange = () => { this.emit('renderInit', null, document); };
   }
@@ -15,7 +16,7 @@ class GroupsView extends Component {
     groupsUlSel.innerHTML = '';
     groups.forEach((group) => {
       let active;
-      const hash = document.location.hash.split(/[#/]/)[1];
+      const hash = parseFloat(document.location.hash.split(/[#/]/)[1]);
       // if (hash.some(item => item === group.group_id)) {
       if (hash === group.group_id) {
         pageTitleSel.innerText = group.name;
@@ -27,7 +28,6 @@ class GroupsView extends Component {
       groupsUlSel.innerHTML += myTemplate;
     });
   }
-
 }
 
 export default GroupsView;
