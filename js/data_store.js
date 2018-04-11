@@ -35,11 +35,8 @@ class DataStore extends Component {
 
   renderInitFun() {
     this.sortData();
-    function fun() {
-      this.emit('renderGroups', this.groups, document);
-      this.emit('renderUsers', this.users, document);
-    }
-    setTimeout(fun.bind(this), 5);
+    this.emit('renderGroups', this.groups, document);
+    this.emit('renderUsers', this.users, document);
   }
 
   actionEventFun(data) {
