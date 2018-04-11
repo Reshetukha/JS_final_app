@@ -10,6 +10,10 @@ class PostBlank extends Component {
   }
 
   openModalPost() {
+    this.emit('postRequestData', null, document);
+  }
+
+  initBlank(groups) {
     modalAddSel.innerHTML = `
     <div class="modal-content">
         <h4>Add new member</h4>
@@ -97,18 +101,14 @@ class PostBlank extends Component {
     this.modalOverlaySel.addEventListener('click', this.closeModalFun.bind(this), false);
     this.createButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
 
-    M.Range.init(this.rangeCreditSel, {});
-    this.emit('postRequestData', null, document);
-  }
-
-  initBlank(groups) {
-    this.groups = groups;
+    // this.groups = groups;
     this.blankGroupsSel.innerHTML = '';
     this.blankGroupsSel.innerHTML += '<option value="" disabled selected>Choose group</option>';
     groups.forEach((item) => {
       this.blankGroupsSel.innerHTML += `<option value="${item.group_id}" id="${item.group_id}">${item.name}</option>`;
     });
     M.FormSelect.init(this.groupSel, {});
+    M.Range.init(this.rangeCreditSel, {});
   }
 
   postBlankCreate() {

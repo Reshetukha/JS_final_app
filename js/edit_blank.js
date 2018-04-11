@@ -131,15 +131,7 @@ class EditBlank extends Component {
       this.phoneSel.disabled = true;
       this.rangeCreditSel.disabled = true;
       this.blankGroupsSel.disabled = true;
-    } else {
-      this.firstNameSel.disabled = false;
-      this.lastNameSel.disabled = false;
-      this.streetSel.disabled = false;
-      this.zipCodeSel.disabled = false;
-      this.citySel.disabled = false;
-      this.phoneSel.disabled = false;
-      this.rangeCreditSel.disabled = false;
-      this.blankGroupsSel.disabled = false;
+      this.updateButtonSel.setAttribute('disabled', null);
     }
 
     if (choosedGroup.is_admin) {
