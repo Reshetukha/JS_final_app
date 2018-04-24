@@ -58,12 +58,10 @@ class FetchService extends Component {
       });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   putUserRequest(user) {
     this.Fetch('user', user.user_id, 'PUT', user);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   postUserRequest(user) {
     this.Fetch('user', null, 'POST', user);
   }
