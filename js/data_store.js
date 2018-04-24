@@ -25,12 +25,13 @@ class DataStore extends Component {
   init() {
     this.users = [];
     this.groups = [];
-    this.on('actionEvent', this.actionEvent.bind(this), document);
     this.on('renderInit', this.renderInit.bind(this), document);
     this.on('postRequestData', this.postBlankEmit.bind(this), document);
     this.on('editRequestData', this.editBlankEmit.bind(this), document);
-    this.on('fetchPostRequest', this.postUserRequest.bind(this), document);
-    this.on('fetchPutRequest', this.putUserRequest.bind(this), document);
+    this.on('userDelete', this.userDelete.bind(this), document);
+    this.on('groupDelete', this.groupDelete.bind(this), document);
+    this.on('updateUser', this.updateUser.bind(this), document);
+    this.on('addGroup', this.addGroup.bind(this), document);
   }
 
   renderInit() {
@@ -39,59 +40,7 @@ class DataStore extends Component {
     this.emit('renderUsers', this.users, document);
   }
 
-  actionEvent(data) {
-    const action = data.action.split(':');
-    if (action[1] === 'updated') {
-      this.fetchFun(data);
-    }
-    if (action[1] === 'removed') {
-      if (action[0] === 'user') {
-        this.userDelete(data.id);
-      }
-      if (action[0] === 'group') {
-        this.groupDelete(data.id);
-      }
-    }
-  }
-
-  userDelete(id) {
-    const temp = this.users.find(item => item.user_id === id);
-    const index = this.users.indexOf(temp);
-    this.users.splice(index, 1);
-    this.emit('renderInit', null, document);
-  }
-
-  groupDelete(id) {
-    const temp = this.groups.find(item => item.group_id === id);
-    const index = this.groups.indexOf(temp);
-    this.groups.splice(index, 1);
-    this.emit('renderInit', null, document);
-  }
-
-  fetchFun(data) {
-    const action = data.action.split(':');
-    const { id } = data;
-    const url = `https://ums-honeybadger.herokuapp.com/${action[0]}/${id}`;
-    fetch(url)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error();
-        }
-        return response.json();
-      })
-      .then((json) => {
-        if (action[0] === 'user') {
-          this.addUser(json);
-        }
-        if (action[0] === 'group') {
-          this.addGroup(json);
-        }
-        this.emit('renderInit', null, document);
-      })
-      .catch(console.log);
-  }
-
-  addUser(user) {
+  updateUser(user) {
     const temp = this.users.find(item => item.user_id === user.user_id);
     if (temp) {
       const index = this.users.indexOf(temp);
@@ -115,38 +64,18 @@ class DataStore extends Component {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  putUserRequest(obj) {
-    const url = `https://ums-honeybadger.herokuapp.com/user/${obj.user_id}`;
-    const temp = new UserObj(obj);
-    fetch(url, {
-      method: 'put',
-      body: JSON.stringify(temp),
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error();
-        }
-      })
-      .catch(console.log);
+  userDelete(id) {
+    const temp = this.users.find(item => item.user_id === id);
+    const index = this.users.indexOf(temp);
+    this.users.splice(index, 1);
+    this.emit('renderInit', null, document);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  postUserRequest(obj) {
-    const url = 'https://ums-honeybadger.herokuapp.com/user';
-    const temp = new UserObj(obj);
-    temp.user_id = undefined;
-
-    fetch(url, {
-      method: 'post',
-      body: JSON.stringify(temp),
-    })
-      .then((response) => {
-        if (response.status !== 201) {
-          throw new Error();
-        }
-      })
-      .catch(console.log);
+  groupDelete(id) {
+    const temp = this.groups.find(item => item.group_id === id);
+    const index = this.groups.indexOf(temp);
+    this.groups.splice(index, 1);
+    this.emit('renderInit', null, document);
   }
 
   postBlankEmit() {
