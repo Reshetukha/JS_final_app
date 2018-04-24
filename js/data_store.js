@@ -25,21 +25,21 @@ class DataStore extends Component {
   init() {
     this.users = [];
     this.groups = [];
-    this.on('actionEvent', this.actionEventFun.bind(this), document);
-    this.on('renderInit', this.renderInitFun.bind(this), document);
+    this.on('actionEvent', this.actionEvent.bind(this), document);
+    this.on('renderInit', this.renderInit.bind(this), document);
     this.on('postRequestData', this.postBlankEmit.bind(this), document);
     this.on('editRequestData', this.editBlankEmit.bind(this), document);
     this.on('fetchPostRequest', this.postUserRequest.bind(this), document);
     this.on('fetchPutRequest', this.putUserRequest.bind(this), document);
   }
 
-  renderInitFun() {
+  renderInit() {
     this.sortData();
     this.emit('renderGroups', this.groups, document);
     this.emit('renderUsers', this.users, document);
   }
 
-  actionEventFun(data) {
+  actionEvent(data) {
     const action = data.action.split(':');
     if (action[1] === 'updated') {
       this.fetchFun(data);

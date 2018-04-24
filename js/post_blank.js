@@ -1,12 +1,19 @@
 import Component from './component';
 
-const modalAddSel = document.querySelector('#modalAdd');
-const openModalSel = document.querySelector('.navigation-add').querySelector('a');
-
 class PostBlank extends Component {
   init() {
+    document.querySelector('#nav-add-button').innerHTML =
+    `
+    <div class="navigation-add">
+        <a class="btn-floating btn-large waves-effect waves-light">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+    `;
+    this.modalAddSel = document.querySelector('#modalAdd');
+    this.openModalSel = document.querySelector('.navigation-add').querySelector('a');
     this.on('postSendData', this.initBlank.bind(this), document);
-    openModalSel.addEventListener('click', this.openModalPost.bind(this), false);
+    this.openModalSel.addEventListener('click', this.openModalPost.bind(this), false);
   }
 
   openModalPost() {
@@ -14,7 +21,7 @@ class PostBlank extends Component {
   }
 
   initBlank(groups) {
-    modalAddSel.innerHTML = `
+    this.modalAddSel.innerHTML = `
     <div class="modal-content">
         <h4>Add new member</h4>
         <div class="row">
@@ -78,23 +85,23 @@ class PostBlank extends Component {
     </div>
     `;
 
-    M.Modal.init(modalAddSel, {});
+    M.Modal.init(this.modalAddSel, {});
 
-    this.instance = M.Modal.getInstance(modalAddSel);
+    this.instance = M.Modal.getInstance(this.modalAddSel);
     this.instance.open();
 
-    this.blankGroupsSel = modalAddSel.querySelector('#groups');
-    this.groupSel = modalAddSel.querySelector('select');
-    this.firstNameSel = modalAddSel.querySelector('#first_name');
-    this.lastNameSel = modalAddSel.querySelector('#last_name');
-    this.streetSel = modalAddSel.querySelector('#street');
-    this.zipCodeSel = modalAddSel.querySelector('#zip_code');
-    this.citySel = modalAddSel.querySelector('#city');
-    this.phoneSel = modalAddSel.querySelector('#phone');
-    this.rangeCreditSel = modalAddSel.querySelector('#range_credit');
-    this.createButtonSel = modalAddSel.querySelector('#create_button');
+    this.blankGroupsSel = this.modalAddSel.querySelector('#groups');
+    this.groupSel = this.modalAddSel.querySelector('select');
+    this.firstNameSel = this.modalAddSel.querySelector('#first_name');
+    this.lastNameSel = this.modalAddSel.querySelector('#last_name');
+    this.streetSel = this.modalAddSel.querySelector('#street');
+    this.zipCodeSel = this.modalAddSel.querySelector('#zip_code');
+    this.citySel = this.modalAddSel.querySelector('#city');
+    this.phoneSel = this.modalAddSel.querySelector('#phone');
+    this.rangeCreditSel = this.modalAddSel.querySelector('#range_credit');
+    this.createButtonSel = this.modalAddSel.querySelector('#create_button');
     this.modalOverlaySel = document.querySelector('.modal-overlay');
-    this.closeButtonSel = modalAddSel.querySelector('#close_button');
+    this.closeButtonSel = this.modalAddSel.querySelector('#close_button');
 
     this.createButtonSel.addEventListener('click', this.postBlankCreate.bind(this), false);
     this.closeButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
@@ -126,7 +133,7 @@ class PostBlank extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   closeModalFun() {
-    modalAddSel.innerHTML = '';
+    this.modalAddSel.innerHTML = '';
   }
 }
 

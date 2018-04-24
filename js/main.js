@@ -4,7 +4,9 @@ import GroupsView from './groups_view';
 import UsersView from './users_view';
 import PostBlank from './post_blank';
 import EditBlank from './edit_blank';
+import HeaderInit from './header_init';
 
+HeaderInit.bindTo(document);
 DataStore.bindTo(document);
 MyWebSocket.bindTo(document);
 GroupsView.bindTo(document);

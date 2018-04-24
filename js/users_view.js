@@ -1,15 +1,29 @@
 import Component from './component';
 
-const usersTableBodySel = document.querySelector('.striped').querySelector('tbody');
-
 class UsersView extends Component {
   init() {
+    document.querySelector('main').innerHTML = `
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>Zip code</th>
+            <th>City</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    `;
     this.on('renderUsers', this.renderUsers.bind(this), document);
+    this.usersTableBodySel = document.querySelector('.striped').querySelector('tbody');
   }
 
   // eslint-disable-next-line class-methods-use-this
   renderUsers(users) {
-    usersTableBodySel.innerHTML = '';
+    this.usersTableBodySel.innerHTML = '';
     users.forEach((user) => {
       const hash = parseFloat(document.location.hash.split(/[#/]/)[1]);
       if (hash === user.group_id) {
@@ -22,7 +36,7 @@ class UsersView extends Component {
           <td>${user.phone}</td>
         </tr>
         `;
-        usersTableBodySel.innerHTML += myTemplate;
+        this.usersTableBodySel.innerHTML += myTemplate;
       }
     });
   }

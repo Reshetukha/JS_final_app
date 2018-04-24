@@ -1,16 +1,15 @@
 import Component from './component';
 
-const modalEditSel = document.querySelector('#modalEdit');
-const mainTableSel = document.querySelector('main').querySelector('tbody');
-
 class EditBlank extends Component {
   init() {
-    mainTableSel.addEventListener('dblclick', this.openModalEdit.bind(this), false);
+    this.modalEditSel = document.querySelector('#modalEdit');
+    this.mainTableSel = document.querySelector('main').querySelector('tbody');
+    this.mainTableSel.addEventListener('dblclick', this.openModalEdit.bind(this), false);
     this.on('editSendData', this.initBlank.bind(this), document);
   }
 
   openModalEdit(e) {
-    modalEditSel.innerHTML = `
+    this.modalEditSel.innerHTML = `
     <div class="modal-content">
         <h4>Edit member</h4>
         <div class="row">
@@ -74,24 +73,24 @@ class EditBlank extends Component {
     </div>
     `;
 
-    M.Modal.init(modalEditSel, {});
+    M.Modal.init(this.modalEditSel, {});
 
-    this.instance = M.Modal.getInstance(modalEditSel);
+    this.instance = M.Modal.getInstance(this.modalEditSel);
     this.instance.open();
 
-    this.blankGroupsSel = modalEditSel.querySelector('#groups');
-    this.groupSel = modalEditSel.querySelector('select');
-    this.firstNameSel = modalEditSel.querySelector('#first_name');
-    this.lastNameSel = modalEditSel.querySelector('#last_name');
-    this.streetSel = modalEditSel.querySelector('#street');
-    this.zipCodeSel = modalEditSel.querySelector('#zip_code');
-    this.citySel = modalEditSel.querySelector('#city');
-    this.phoneSel = modalEditSel.querySelector('#phone');
-    this.rangeCreditSel = modalEditSel.querySelector('#range_credit');
-    this.idContainerSel = modalEditSel.querySelector('.modal-content');
+    this.blankGroupsSel = this.modalEditSel.querySelector('#groups');
+    this.groupSel = this.modalEditSel.querySelector('select');
+    this.firstNameSel = this.modalEditSel.querySelector('#first_name');
+    this.lastNameSel = this.modalEditSel.querySelector('#last_name');
+    this.streetSel = this.modalEditSel.querySelector('#street');
+    this.zipCodeSel = this.modalEditSel.querySelector('#zip_code');
+    this.citySel = this.modalEditSel.querySelector('#city');
+    this.phoneSel = this.modalEditSel.querySelector('#phone');
+    this.rangeCreditSel = this.modalEditSel.querySelector('#range_credit');
+    this.idContainerSel = this.modalEditSel.querySelector('.modal-content');
     this.modalOverlaySel = document.querySelector('.modal-overlay');
-    this.updateButtonSel = modalEditSel.querySelector('#update_button');
-    this.closeButtonSel = modalEditSel.querySelector('#close_button');
+    this.updateButtonSel = this.modalEditSel.querySelector('#update_button');
+    this.closeButtonSel = this.modalEditSel.querySelector('#close_button');
 
     M.Range.init(this.rangeCreditSel, {});
     this.emit('editRequestData', e.target.parentNode.id, document);
@@ -161,7 +160,7 @@ class EditBlank extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   closeModalFun() {
-    modalEditSel.innerHTML = '';
+    this.modalEditSel.innerHTML = '';
   }
 }
 
