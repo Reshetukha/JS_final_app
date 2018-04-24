@@ -22,57 +22,50 @@ class FetchService extends Component {
     }
   }
 
+  Fetch(whom, id, methodProp = 'GET', bodyProp) {
+    this.url = `https://ums-honeybadger.herokuapp.com/${whom}`;
+    if (id) this.url += `/${id}`;
+    return fetch(this.url, {
+      method: methodProp,
+      body: JSON.stringify(bodyProp),
+    }).then((response) => {
+      if ((response.status !== 200 && methodProp === 'GET') ||
+          (response.status !== 200 && methodProp === 'PUT') ||
+          (response.status !== 201 && methodProp === 'POST')) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    }).catch((msg) => {
+      M.toast({ html: `Network failure! ${msg}`, classes: 'red', displayLength: Infinity });
+    });
+  }
+
   getRequest(data) {
-    const action = data.action.split(':');
+    const action = data.action.split(':')[0];
     const { id } = data;
-    const url = `https://ums-honeybadger.herokuapp.com/${action[0]}/${id}`;
-    fetch(url)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error();
-        }
-        return response.json();
-      })
+    this.Fetch(action, id)
       .then((json) => {
-        if (action[0] === 'user') {
+        if (action === 'user') {
           this.emit('updateUser', json, document);
         }
-        if (action[0] === 'group') {
+        if (action === 'group') {
           this.emit('addGroup', json, document);
         }
         this.emit('renderInit', null, document);
       })
-      .catch(console.log);
+      .catch((msg) => {
+        M.toast({ html: `Client failure! ${msg}`, classes: 'red', displayLength: Infinity });
+      });
   }
 
   // eslint-disable-next-line class-methods-use-this
   putUserRequest(user) {
-    const url = `https://ums-honeybadger.herokuapp.com/user/${user.user_id}`;
-    fetch(url, {
-      method: 'put',
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error();
-        }
-      })
-      .catch(console.log);
+    this.Fetch('user', user.user_id, 'PUT', user);
   }
 
   // eslint-disable-next-line class-methods-use-this
   postUserRequest(user) {
-    const url = 'https://ums-honeybadger.herokuapp.com/user';
-    fetch(url, {
-      method: 'post',
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        if (response.status !== 201) {
-          throw new Error();
-        }
-      })
-      .catch(console.log);
+    this.Fetch('user', null, 'POST', user);
   }
 }
 

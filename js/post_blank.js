@@ -104,9 +104,9 @@ class PostBlank extends Component {
     this.closeButtonSel = this.modalAddSel.querySelector('#close_button');
 
     this.createButtonSel.addEventListener('click', this.postBlankCreate.bind(this), false);
-    this.closeButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
-    this.modalOverlaySel.addEventListener('click', this.closeModalFun.bind(this), false);
-    this.createButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
+    this.closeButtonSel.addEventListener('click', this.closeModal.bind(this), false);
+    this.modalOverlaySel.addEventListener('click', this.closeModal.bind(this), false);
+    this.createButtonSel.addEventListener('click', this.closeModal.bind(this), false);
 
     this.blankGroupsSel.innerHTML = '';
     this.blankGroupsSel.innerHTML += '<option value="" disabled selected>Choose group</option>';
@@ -132,7 +132,7 @@ class PostBlank extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  closeModalFun() {
+  closeModal() {
     this.modalAddSel.innerHTML = '';
   }
 }

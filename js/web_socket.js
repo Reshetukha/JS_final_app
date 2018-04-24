@@ -21,17 +21,17 @@ class MyWebSocket extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   onOpenFun(e) {
-    console.log(e);
+    M.toast({ html: `WebSocket connected! ${e}`, classes: 'green' });
   }
 
   // eslint-disable-next-line class-methods-use-this
   onError(e) {
-    console.log(e);
+    M.toast({ html: `WebSocket error! ${e}`, classes: 'red', displayLength: Infinity });
   }
 
   // eslint-disable-next-line class-methods-use-this
   onClose(m) {
-    console.log(m);
+    M.toast({ html: `WebSocket closed! ${m}`, classes: 'red', displayLength: Infinity });
   }
 }
 

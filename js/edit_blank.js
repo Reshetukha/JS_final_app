@@ -96,9 +96,9 @@ class EditBlank extends Component {
     this.emit('editRequestData', e.target.parentNode.id, document);
 
     this.updateButtonSel.addEventListener('click', this.editBlankUpdate.bind(this), false);
-    this.closeButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
-    this.updateButtonSel.addEventListener('click', this.closeModalFun.bind(this), false);
-    this.modalOverlaySel.addEventListener('click', this.closeModalFun.bind(this), false);
+    this.closeButtonSel.addEventListener('click', this.closeModal.bind(this), false);
+    this.updateButtonSel.addEventListener('click', this.closeModal.bind(this), false);
+    this.modalOverlaySel.addEventListener('click', this.closeModal.bind(this), false);
   }
 
   initBlank(params) {
@@ -159,7 +159,7 @@ class EditBlank extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  closeModalFun() {
+  closeModal() {
     this.modalEditSel.innerHTML = '';
   }
 }
